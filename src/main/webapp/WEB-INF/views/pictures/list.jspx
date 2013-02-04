@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="label_picture_list" var="labelPictureList" />
+	<spring:message code="label_picture_update" var="labelPictureUpdate" />
+	<spring:message code="picture_name" var="pictureName" />
+	<spring:message code="picture_description" var="pictureDescr" />
+	<spring:message code="picture" var="pictureLoadingForm" />
+	<spring:message code="delete" var="delete" />
+
+	<spring:url value="/pictures" var="showPictureUrl" />
+	<spring:url value="/pictures/photo" var="PictureUrl" />
+
+	<h1>${labelPictureList}</h1>
+
+	<div class="table-wrapper">
+		<table id="users-list" class="tablesorter">
+			<thead>
+				<tr>
+					<td>${pictureName }</td>
+					<td>${pictureDescr }</td>
+					<td>${pictureLoadingForm }</td>
+					<td>${delete }</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${pictures}" var="picture">
+					<tr>
+						<td>${picture.name}</td>
+						<td>${picture.description}</td>
+						<td><a href="${showPictureUrl}/${picture.id}"><img
+								width="300" src="${PictureUrl}/${picture.id}"></img></a></td>
+						<td class="delete"><a
+							href="${showPictureUrl}/${picture.id}?delete">${delete }</a></td>
+						<input type="hidden" value="${picture.id}" class="user-id" />
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+
+</div>

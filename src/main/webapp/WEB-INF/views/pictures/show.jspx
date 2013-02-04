@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="picture_name" var="pictureName" />
+	<spring:message code="picture_description" var="pictureDescr" />
+	<spring:message code="label_picture_update" var="pictureUpdate" />
+	
+	<spring:url value="/pictures" var="editPictureUrl" />
+	<spring:url value="/pictures/photo" var="PictureUrl"/>
+	
+
+	<div id="userInfo">
+
+		<c:if test="${not empty message}">
+			<div id="message" class="${message.type}">${message.message}</div>
+		</c:if>
+
+		<table>
+			<tr>
+				<td align="center">${pictureName}:  ${picture.name}</td>
+			</tr>
+			<tr>				
+				<td align="center">${pictureDescr}:  ${picture.description}</td>
+			</tr>
+			<tr>				
+				<td align="center">${picture.creationTime}</td>
+			</tr>
+			<tr>                 
+                <td ><img width="710" src="${PictureUrl}/${picture.id}"></img></td> 
+            </tr> 
+		</table>
+		
+		
+		
+		
+		<a href="${editPictureUrl}/${picture.id}?form">${pictureUpdate }</a>
+
+	</div>
+
+</div>
+
+
+
+
+
+

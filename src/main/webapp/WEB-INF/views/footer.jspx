@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="footer" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	
+	<spring:message code="home_text" var="homeText"/>
+	<spring:message code="label_en_US" var="labelEnUs"/>
+    <spring:message code="label_ru" var="labelRu"/>
+	<spring:url value="/users" var="homeUrl"/>
+
+    <a href="${homeUrl}">${homeText}</a> |
+    <a href="?lang=en_US">${labelEnUs}</a> |
+    <a href="?lang=ru">${labelRu}</a>
+    <p/>
+	<b/>
+	<a href="?theme=standard">Standard Theme</a> |
+    <a href="?theme=second">Second Theme</a>
+</div>

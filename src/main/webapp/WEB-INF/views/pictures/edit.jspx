@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="label_picture_new" var="labelPictureNew" />
+	<spring:message code="label_picture_update" var="labelPictureUpdate" />
+	<spring:message code="picture_name" var="pictureName"/> 
+    <spring:message code="picture_description" var="pictureDescr"/>
+    <spring:message code="picture" var="pictureLoadingForm"/>
+
+	<spring:eval
+		expression="picture.id == null ? labelPictureNew:labelPictureUpdate"
+		var="formTitle" />
+
+	<h1>${formTitle}</h1>
+
+	<div id="contactUpdate">
+		<form:form modelAttribute="picture" id="contactUpdateForm"
+			method="post" enctype="multipart/form-data">
+
+			<c:if test="${not empty message}">
+				<div id="message" class="${message.type}">${message.message}</div>
+			</c:if>
+
+			<form:label path="name">${pictureName }</form:label>
+			<form:input path="name" />
+			<div>
+				<form:errors path="name" cssClass="error" />
+			</div>
+			<p />
+
+			<form:label path="description">
+            ${pictureDescr }
+        </form:label>
+			<form:input path="description" />
+			<div>
+				<form:errors path="description" cssClass="error" />
+			</div>
+			<p />
+
+			<label for="file"> ${pictureLoadingForm } </label>
+			<input name="file" type="file" />
+			<p />
+
+			<button type="submit"
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+				<span class="ui-button-text">Save</span>
+			</button>
+			<button type="reset"
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+				<span class="ui-button-text">Reset</span>
+			</button>
+
+		</form:form>
+	</div>
+
+</div>
