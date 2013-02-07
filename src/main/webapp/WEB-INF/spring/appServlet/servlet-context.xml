@@ -20,9 +20,8 @@
 	</beans:bean>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
-		up static resources in the ${webappRoot}/resources directory -->
-	<resources location="/, classpath:/META-INF/web-resources/"
-		mapping="/resources/**" />
+		up static resources in the ${webappRoot}/ directory -->
+	<resources location="/" mapping="/resources/**" />
 
 	<!-- Enable controller method level security -->
 	<security:global-method-security

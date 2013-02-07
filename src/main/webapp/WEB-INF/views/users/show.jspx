@@ -17,7 +17,7 @@
 	<h1>${labelUserInfo}</h1>
 
 
-	<div id="contactInfo">
+	<div id="userInfo">
 
 		<c:if test="${not empty message}">
 			<div id="message" class="${message.type}">${message.message}</div>

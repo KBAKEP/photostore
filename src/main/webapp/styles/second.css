@@ -1,4 +1,3 @@
-@import url("messages/messages.css");
 
 /* main elements */
 
@@ -24,25 +23,12 @@ body {
     font-size: 150%;
     vertical-align: middle;
 }
-
-#banner {
-    float: left;
-    margin: 5;
-    padding: 5px 10px;
-    font-size: 150%;
-    vertical-align: middle;
-}
     
 #userinfo {
     float: right;
     margin: 5;
     padding: 5px 5px;
 }
-
-#language {
-    margin: 5;
-    padding: 5px 5px;
-} 
 
 #headerWrapper {
     width:950px;
@@ -138,18 +124,6 @@ body {
 }
 
 #footer a:link {color: #D32C1D;}
-
-.quicklinks {
-	clear:both; 
-	padding-bottom: 15px
-}
-.quicklinks span {
-	float: right;
-}
-
-table.navigation {
-	border: 0px;
-}
 
 label {
 	width:150px;

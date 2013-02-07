@@ -33,7 +33,7 @@
 		<h1>${label}</h1>
 
 		<div class="table-wrapper">
-			<table id="users-list" class="tablesorter">
+			<table id="users-list">
 				<thead>
 					<tr>
 						<th>${login }</th>
