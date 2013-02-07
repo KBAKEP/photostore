@@ -2,6 +2,7 @@ package by.cources.photostore.model;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import java.util.List;
 
@@ -10,11 +11,13 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.GrantedAuthority;
+
 
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements org.springframework.security.core.userdetails.UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +42,10 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Album> albums = new ArrayList<Album>();
 	*/
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+	private Role grantedAuthority;
 	
 	@OneToMany(mappedBy = "user")
 	private List<Picture> pictures = new ArrayList<Picture>();
@@ -101,7 +108,14 @@ public class User {
 		this.id = id;
 	}
 
-	
+	public Role getGrantedAuthority() {
+		return grantedAuthority;
+	}
+
+	public void setGrantedAuthority(Role grantedAuthority) {
+		this.grantedAuthority = grantedAuthority;
+	}
+
 	
 	public List<Picture> getPictures() {
 		return pictures;
@@ -160,6 +174,42 @@ public class User {
 		} else if (!pictures.equals(other.pictures))
 			return false;
 		return true;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		
+		return login;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/*

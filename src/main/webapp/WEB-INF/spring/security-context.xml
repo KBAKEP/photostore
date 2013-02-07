@@ -14,7 +14,10 @@
 		<logout logout-success-url="/users" />
 	</http>
 
+	<beans:bean id="myUserDetailsService" class="by.cources.photostore.security.UserServiceImpl" />
+	
 	<authentication-manager>
+		<authentication-provider user-service-ref='myUserDetailsService' />
 		<authentication-provider>
 			<user-service>
 				<user name="user" password="user" authorities="ROLE_USER" />

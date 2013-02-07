@@ -48,6 +48,18 @@ public interface CrudDao {
 	 */
 	<T, PK extends Serializable> T find(Class<T> type, PK id)
 			throws DalException;
+	
+	/**
+	 * Find object by id
+	 * 
+	 * @param <T>
+	 * @param String
+	 * @param type
+	 * @param name
+	 * @return the object
+	 */
+	<T> T findByName(Class<T> type, String name)
+			throws DalException;
 
 	/**
 	 * List of objects

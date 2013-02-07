@@ -13,15 +13,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import by.cources.photostore.exception.*;
+import by.cources.photostore.model.Picture;
 
 /**
  * Hibernate crud dao interface implementation
  * 
  * @author harchevnikov_m Date: 18.09.11 Time: 21:20
  */
-@Repository(value="crud")
+@Repository(value = "crud")
 @Transactional
-
 public class CrudDaoBean implements CrudDao {
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -47,8 +47,20 @@ public class CrudDaoBean implements CrudDao {
 	@SuppressWarnings("unchecked")
 	public <T, PK extends Serializable> T find(Class<T> type, PK id)
 			throws DalException {
-		try {			
+		try {
 			return (T) currentSession().get(type, id);
+		} catch (HibernateException e) {
+			throw new DalException(e);
+		}
+	}
+
+	public <T> T findByName(Class<T> type, String name) throws DalException {
+		try {
+			List list = currentSession()
+					.createSQLQuery("select * from user where login=" + name)
+					.addEntity(type).list();
+			return (T) list.get(0);
+
 		} catch (HibernateException e) {
 			throw new DalException(e);
 		}
@@ -69,15 +81,15 @@ public class CrudDaoBean implements CrudDao {
 	@SuppressWarnings({ "unchecked" })
 	public <T> List<T> list(Class<T> type) throws DalException {
 		try {
-			return currentSession().createCriteria(type).list();			
+			return currentSession().createCriteria(type).list();
 		} catch (HibernateException e) {
 			throw new DalException(e);
 		}
 	}
 
 	private Session currentSession() {
-		Session currentSession = sessionFactory.getCurrentSession();		
-		//Session currentSession = sessionFactory.openSession();
+		Session currentSession = sessionFactory.getCurrentSession();
+		// Session currentSession = sessionFactory.openSession();
 		return currentSession;
 	}
 }

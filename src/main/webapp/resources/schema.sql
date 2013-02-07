@@ -9,6 +9,17 @@ CREATE TABLE USER (
      , PRIMARY KEY (ID)
 );
 
+DROP TABLE IF EXISTS authorities;
+
+CREATE TABLE authorities
+(
+    username    varchar2 (50) NOT NULL,
+    authority   varchar2 (50) NOT NULL,
+    CONSTRAINT fk_authorities_users FOREIGN KEY
+        (username)
+         REFERENCES users (LOGIN)
+);
+
 DROP TABLE IF EXISTS PICTURE;
 
 CREATE TABLE PICTURE (
