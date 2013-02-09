@@ -24,8 +24,7 @@
 		<div id="message" class="${message.type}">${message.message}</div>
 	</c:if>
 	
-	<sec:authorize access="hasRole('ROLE_USER')">
-		<c:redirect url="${showPicturesUrl }" />		
+	<sec:authorize access="isAuthenticated()">
 		<a href="${showPicturesUrl }">${pictures }</a>
 	</sec:authorize>
 

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import by.cources.photostore.dal.PictureDao;
 import by.cources.photostore.exception.DalException;
 import by.cources.photostore.model.Picture;
 import by.cources.photostore.model.User;
