@@ -3,6 +3,8 @@ package by.cources.photostore.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+
 
 @Entity
 @Table(name = "role")
@@ -14,7 +16,7 @@ public class Role {
     private Long roleId;
 	
 	@Column(name = "role_name")
-    private String roleName;
+	private String roleName;
 
     
     public Long getRoleId() {

@@ -11,19 +11,16 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.security.core.GrantedAuthority;
-
 
 
 @Entity
 @Table(name = "user")
-public class User implements org.springframework.security.core.userdetails.UserDetails {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private Long id;
-	
+	private Long id;	
 	 
 /*	@NotEmpty(message="{validation.login.NotEmpty.message}") 
 	@Size(min=3, max=60, message="{validation.login.Size.message}") */
@@ -44,11 +41,12 @@ public class User implements org.springframework.security.core.userdetails.UserD
 	*/
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
+	@JoinColumn(name = "role_id")	
 	private Role grantedAuthority;
-	
+		
 	@OneToMany(mappedBy = "user")
 	private List<Picture> pictures = new ArrayList<Picture>();
+	
 	
 	public User() {
 	}
@@ -61,7 +59,6 @@ public class User implements org.springframework.security.core.userdetails.UserD
 		this.email = email;
 		this.password = password;
 	}
-
 	
 	/*
 	public void addAlbum(Album albumToAdd) {
@@ -115,7 +112,6 @@ public class User implements org.springframework.security.core.userdetails.UserD
 	public void setGrantedAuthority(Role grantedAuthority) {
 		this.grantedAuthority = grantedAuthority;
 	}
-
 	
 	public List<Picture> getPictures() {
 		return pictures;
@@ -176,42 +172,16 @@ public class User implements org.springframework.security.core.userdetails.UserD
 		return true;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	
+/*
+ * needs for UserService interface
+ * 
 	public String getUsername() {
 		
 		return login;
 	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+*/
+	
 	/*
 	public List<Album> getAlbums() {
 		return albums;

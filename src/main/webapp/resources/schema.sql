@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS ROLE;
+
+CREATE TABLE ROLE
+(
+    ROLE_ID INT NOT NULL AUTO_INCREMENT,
+    ROLE_NAME  VARCHAR(40) NOT NULL,
+    UNIQUE UQ_ROLE_1 (ROLE_NAME),
+    PRIMARY KEY (ROLE_ID)
+);
+
 DROP TABLE IF EXISTS USER;
 
 CREATE TABLE USER (
@@ -5,11 +15,16 @@ CREATE TABLE USER (
      , LOGIN VARCHAR(60) NOT NULL
      , PASSWORD VARCHAR(40) NOT NULL
 	 , EMAIL VARCHAR(40) NOT NULL
+	 , ROLE_ID INT NOT NULL
      , UNIQUE UQ_USER_1 (LOGIN, PASSWORD)
      , PRIMARY KEY (ID)
+     , CONSTRAINT FK_USERROLE_1 FOREIGN KEY(ROLE_ID) 
+    REFERENCES ROLE (ROLE_ID)
 );
 
+/*
 DROP TABLE IF EXISTS authorities;
+
 
 CREATE TABLE authorities
 (
@@ -19,6 +34,7 @@ CREATE TABLE authorities
         (username)
          REFERENCES users (LOGIN)
 );
+*/
 
 DROP TABLE IF EXISTS PICTURE;
 
@@ -35,6 +51,10 @@ CREATE TABLE PICTURE (
 	   REFERENCES USER (ID)
 );
 
-insert into USER (LOGIN, PASSWORD, EMAIL) values ('Alex', '1234', 'qwe@gmail.com');
-insert into USER (LOGIN, PASSWORD, EMAIL) values ('Scott', '123', 'qwe2@gmail.com');
-insert into USER (LOGIN, PASSWORD, EMAIL) values ('John', '12345', 'qwe3@gmail.com');
+insert into ROLE (ROLE_NAME) values ('ROLE_USER');
+insert into ROLE (ROLE_NAME) values ('ROLE_ADMIN');
+
+insert into USER (LOGIN, PASSWORD, EMAIL, ROLE_ID) values ('Alex', '1234', 'qwe@gmail.com', '1');
+insert into USER (LOGIN, PASSWORD, EMAIL, ROLE_ID) values ('Scott', '123', 'qwe2@gmail.com', '1');
+insert into USER (LOGIN, PASSWORD, EMAIL, ROLE_ID) values ('John', '12345', 'qwe3@gmail.com', '1');
+insert into USER (LOGIN, PASSWORD, EMAIL, ROLE_ID) values ('admin', 'admin', 'qwe@gmail.com', '2');

@@ -3,9 +3,12 @@ package by.cources.photostore.dal;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -14,18 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import by.cources.photostore.exception.*;
 import by.cources.photostore.model.Picture;
+import by.cources.photostore.web.controller.UserController;
 
 /**
  * Hibernate crud dao interface implementation
  * 
  * @author harchevnikov_m Date: 18.09.11 Time: 21:20
  */
-@Repository(value = "crud")
+@Repository(value = "crudDaoBean")
 @Transactional
 public class CrudDaoBean implements CrudDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	private static final Logger LOGGER = Logger.getLogger(UserController.class);
 	/**
 	 * Default constructor
 	 */
@@ -56,11 +61,20 @@ public class CrudDaoBean implements CrudDao {
 
 	public <T> T findByName(Class<T> type, String name) throws DalException {
 		try {
+			LOGGER.info("test message from DaoBean");
+			/*			
 			List list = currentSession()
 					.createSQLQuery("select * from user where login=" + name)
 					.addEntity(type).list();
+			LOGGER.info((T) list.get(0).toString());
 			return (T) list.get(0);
-
+*/
+			Criteria criteria = currentSession().createCriteria(type);
+			criteria.add(Restrictions.eq("login", name));     //hardcode
+			criteria.setMaxResults(1);
+			LOGGER.info((T) criteria.uniqueResult().toString());        
+	        return (T) criteria.uniqueResult();
+	                
 		} catch (HibernateException e) {
 			throw new DalException(e);
 		}

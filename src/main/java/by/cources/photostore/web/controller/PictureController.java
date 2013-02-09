@@ -35,6 +35,7 @@ public class PictureController {
 	@Autowired
 	private PictureService pictureService;
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
 		try {
@@ -47,6 +48,7 @@ public class PictureController {
 		return "pictures/list";
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
 		try {
@@ -57,6 +59,7 @@ public class PictureController {
 		return "forward:/pictures";
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable("id") Long id, Model Model) {
 		Picture picture = new Picture();
@@ -69,6 +72,7 @@ public class PictureController {
 		return "pictures/show";
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	public String update(Picture picture, Model model,
 			@RequestParam(value = "file", required = false) Part file) {
@@ -101,6 +105,7 @@ public class PictureController {
 		return "redirect:/pictures/" + picture.getId().toString();
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/photo/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public byte[] downloadPhoto(@PathVariable("id") Long id) {
@@ -120,6 +125,7 @@ public class PictureController {
 		return picture.getPhoto();
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
 	public String updateForm(@PathVariable("id") Long id, Model model) {
 		try {
@@ -131,6 +137,7 @@ public class PictureController {
 		return "pictures/update";
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(params = "form", method = RequestMethod.POST)
 	public String create(Picture picture,
 			@RequestParam(value = "file", required = false) Part file) {

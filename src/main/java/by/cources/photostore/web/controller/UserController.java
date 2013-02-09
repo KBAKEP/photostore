@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import by.cources.photostore.dal.CrudDao;
+import by.cources.photostore.model.Role;
 import by.cources.photostore.model.User;
 import by.cources.photostore.web.form.Message;
 import by.cources.photostore.exception.DalException;
@@ -33,9 +35,10 @@ public class UserController {
 
 		
 	@Autowired
-	@Qualifier("crud")
+	@Qualifier("crudDaoBean")
 	private CrudDao crudDao;
 
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
 		try {
@@ -48,6 +51,7 @@ public class UserController {
 		return "users/list";
 	}
 
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
 		try {
@@ -58,6 +62,7 @@ public class UserController {
 		return "forward:/users";
 	}
 
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable("id") Long id, Model Model) {
 		User user = new User();
@@ -70,6 +75,7 @@ public class UserController {
 		return "users/show";
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	public String update(/*@Valid*/ User user, Model model,
 			BindingResult bindingResult, Locale locale) {
@@ -85,6 +91,7 @@ public class UserController {
 		}
 */
 		try {
+			user.setGrantedAuthority(crudDao.find(Role.class, 1L));
 			crudDao.merge(user);
 		} catch (DalException e) {
 			LOGGER.info(e.getMessage());
@@ -92,6 +99,7 @@ public class UserController {
 		return "redirect:/users/" + user.getId().toString();
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
 	public String updateForm(@PathVariable("id") Long id, Model model) {
 		try {
@@ -101,7 +109,7 @@ public class UserController {
 		}
 		return "users/update";
 	}
-
+	
 	@RequestMapping(params = "form", method = RequestMethod.POST)
 	public String create(/*@Valid*/ User user, Model model,
 			BindingResult bindingResult, Locale locale) {
@@ -116,7 +124,9 @@ public class UserController {
 			return "users/create";
 		}
 */
+		
 		try {
+			user.setGrantedAuthority(crudDao.find(Role.class, 1L));
 			user = crudDao.merge(user);
 		} catch (DalException e) {
 			LOGGER.info(e.getMessage());

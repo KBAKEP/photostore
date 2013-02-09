@@ -25,7 +25,7 @@
 	</c:if>
 	
 	<sec:authorize access="hasRole('ROLE_USER')">
-		<!-- 	<jsp:forward page="${showPicturesUrl }"/>		-->
+		<c:redirect url="${showPicturesUrl }" />		
 		<a href="${showPicturesUrl }">${pictures }</a>
 	</sec:authorize>
 
