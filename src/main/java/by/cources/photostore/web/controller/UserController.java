@@ -3,10 +3,7 @@ package by.cources.photostore.web.controller;
 import java.util.List;
 import java.util.Locale;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -19,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import by.cources.photostore.dal.CrudDao;
+import by.cources.photostore.exception.DalException;
 import by.cources.photostore.model.Role;
 import by.cources.photostore.model.User;
-import by.cources.photostore.web.form.Message;
-import by.cources.photostore.exception.DalException;
+
+
 
 @Controller
 @RequestMapping("/users")
@@ -32,7 +30,6 @@ public class UserController {
 
 	@Autowired
 	MessageSource messageSource;
-
 		
 	@Autowired
 	@Qualifier("crudDaoBean")
@@ -89,7 +86,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			return "users/update";
 		}
-*/
+*/ 
 		try {
 			user.setGrantedAuthority(crudDao.find(Role.class, 1L));
 			crudDao.merge(user);

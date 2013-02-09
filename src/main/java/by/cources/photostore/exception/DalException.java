@@ -1,9 +1,9 @@
 package by.cources.photostore.exception;
 
 /**
- * DAL layour exception
+ * DAL layer exception
  * 
- * @author mihm
+ 
  * 
  */
 public class DalException extends Exception {

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import by.cources.photostore.exception.*;
 import by.cources.photostore.model.Picture;
-import by.cources.photostore.web.controller.UserController;
+
 
 /**
  * Hibernate crud dao interface implementation
@@ -30,7 +30,7 @@ public class CrudDaoBean implements CrudDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	private static final Logger LOGGER = Logger.getLogger(UserController.class);
+	private static final Logger LOGGER = Logger.getLogger(CrudDaoBean.class);
 	/**
 	 * Default constructor
 	 */

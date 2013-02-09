@@ -16,7 +16,7 @@ import by.cources.photostore.dal.PictureDao;
 import by.cources.photostore.exception.DalException;
 import by.cources.photostore.model.Picture;
 import by.cources.photostore.model.User;
-import by.cources.photostore.web.controller.UserController;
+
 
 @Service("pictureService")
 @Repository
@@ -26,7 +26,7 @@ public class PictureServiceImp implements PictureService {
 	@Autowired
 	private PictureDao pictureCrudDao;
 
-	private static final Logger LOGGER = Logger.getLogger(UserController.class);
+	private static final Logger LOGGER = Logger.getLogger(PictureServiceImp.class);
 
 	public <T> T merge(T t) throws DalException {
 
