@@ -20,6 +20,7 @@ import by.cources.photostore.dal.CrudDao;
 import by.cources.photostore.exception.DalException;
 import by.cources.photostore.model.Role;
 import by.cources.photostore.model.User;
+import by.cources.photostore.web.validator.UserValidator;
 
 
 
@@ -31,7 +32,10 @@ public class UserController {
 
 	@Autowired
 	MessageSource messageSource;
-		
+	
+	@Autowired
+	private UserValidator userValidator;
+	
 	@Autowired
 	@Qualifier("crudDaoBean")
 	private CrudDao crudDao;
@@ -87,6 +91,10 @@ public class UserController {
 			return "users/update";
 		}
 */ 
+		userValidator.validate(user, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return "users/update";
+		}
 		try {
 			user.setGrantedAuthority(crudDao.find(Role.class, 1L));
 			crudDao.merge(user);
@@ -121,18 +129,18 @@ public class UserController {
 			return "users/create";
 		}
 */
-		
+		userValidator.validate(user, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return "users/create";
+		}		
 		try {
 			user.setGrantedAuthority(crudDao.find(Role.class, 1L));
 			user = crudDao.merge(user);
 		} catch (DalException e) {
 			LOGGER.info(e.getMessage());
-		}
-		LOGGER.info("before getId()");
-		LOGGER.info("redirect and getId()" + "redirect:/users/"
-				+ user.getId().toString());
+		}	
 		return "redirect:/users/" + user.getId().toString();
-	}
+	}	
 
 	@RequestMapping(params = "form", method = RequestMethod.GET)
 	public String createForm(Model model) {

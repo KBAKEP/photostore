@@ -40,6 +40,9 @@ public class User {
 	private List<Album> albums = new ArrayList<Album>();
 	*/
 	
+	@Transient
+	private String confirmPassword;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "role_id")	
 	private Role grantedAuthority;
@@ -119,6 +122,15 @@ public class User {
 
 	public void setPictures(List<Picture> pictures) {
 		this.pictures = pictures;
+	}
+
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	@Override

@@ -185,6 +185,10 @@ div .box {
 	margin-left:105px;
 }
 
+.error {
+	color: red;
+}
+
 /* menu elements*/
 
 a.menu, a.menu:link, a.menu:visited {display:block; width:150px; height:25px;} 

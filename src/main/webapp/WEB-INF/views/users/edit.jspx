@@ -44,7 +44,7 @@
 			<p />
 
 			<form:label path="email">
-            ${user_email}
+            ${user_email}*
         </form:label>
 			<form:input path="email" id="email" />
 			<div>
